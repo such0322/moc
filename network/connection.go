@@ -2,18 +2,22 @@ package network
 
 import (
 	"fmt"
-	"moc/ciface"
 	"net"
 )
+
+type IConnection interface {
+	Start()
+	Stop()
+}
 
 type Connection struct {
 	Conn   *net.TCPConn
 	ConnID uint32
 
-	MsgHandle ciface.IMsgHandle
+	MsgHandle IMsgHandle
 }
 
-func NewConnection(conn *net.TCPConn, cid uint32, msgHandle ciface.IMsgHandle) ciface.IConnection {
+func NewConnection(conn *net.TCPConn, cid uint32, msgHandle IMsgHandle) IConnection {
 	c := &Connection{
 		Conn:      conn,
 		ConnID:    cid,

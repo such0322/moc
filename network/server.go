@@ -2,7 +2,7 @@ package network
 
 import (
 	"fmt"
-	"moc/ciface"
+	"moc/utils"
 	"net"
 )
 
@@ -12,20 +12,20 @@ type Server struct {
 	IP        string
 	Port      int
 
-	MsgHandle ciface.IMsgHandle
+	MsgHandle IMsgHandle
 }
 
-func (s *Server) AddRouter(msgId uint32, router ciface.IRouter) {
+func (s *Server) AddRouter(msgId uint32, router IRouter) {
 	s.MsgHandle.AddRouter(msgId, router)
 	fmt.Println("Add Router Succ!!")
 }
 
-func NewServer(name string) ciface.IServer {
+func NewServer() *Server {
 	s := &Server{
-		Name:      name,
+		Name:      utils.GlobalObject.Name,
 		IPVersion: "tcp4",
-		IP:        "127.0.0.1",
-		Port:      9100,
+		IP:        utils.GlobalObject.IP,
+		Port:      utils.GlobalObject.Port,
 		MsgHandle: NewMsgHandle(),
 	}
 	return s

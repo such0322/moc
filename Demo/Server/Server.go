@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	s := network.NewServer("Gate1")
+	s := network.NewServer()
 	//routersInit := routers.RouterInit(s)
 	routers.RouterInit(s)
 

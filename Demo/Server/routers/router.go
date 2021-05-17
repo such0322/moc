@@ -2,7 +2,6 @@ package routers
 
 import (
 	"fmt"
-	"moc/ciface"
 	"moc/network"
 )
 
@@ -15,7 +14,7 @@ type PingRouter struct {
 	network.BaseRouter
 }
 
-func (r *PingRouter) Handle(request ciface.IRequest) {
+func (r *PingRouter) Handle(request network.IRequest) {
 	fmt.Println("pingpingpingpingping")
 }
 
@@ -23,7 +22,7 @@ type HelloRouter struct {
 	network.BaseRouter
 }
 
-func RouterInit(s ciface.IServer) {
+func RouterInit(s network.IServer) {
 	s.AddRouter(0, &PingRouter{})
 	s.AddRouter(1, &HelloRouter{})
 

@@ -1,8 +1,10 @@
 package network
 
-import "moc/ciface"
+type IRouter interface {
+	Handle(req IRequest)
+}
 
 type BaseRouter struct {
 }
 
-func (b BaseRouter) Handle(req ciface.IRequest) {}
+func (b BaseRouter) Handle(req IRequest) {}

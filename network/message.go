@@ -1,5 +1,11 @@
 package network
 
+type IMessage interface {
+	GetID() uint32
+	GetDataLen() uint32
+	GetData() []byte
+}
+
 type Message struct {
 	ID      uint32
 	DataLen uint32

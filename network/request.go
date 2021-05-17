@@ -1,9 +1,13 @@
 package network
 
-import "moc/ciface"
+
+type IRequest interface {
+	GetMsgID() uint32
+	GetData() []byte
+}
 
 type Request struct {
-	Msg ciface.IMessage
+	Msg IMessage
 }
 
 func (r *Request) GetMsgID() uint32 {

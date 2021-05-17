@@ -2,20 +2,24 @@ package network
 
 import (
 	"fmt"
-	"moc/ciface"
 )
 
+type IMsgHandle interface {
+	DoMsgHandler(request IRequest)
+	AddRouter(msgID uint32, router IRouter)
+}
+
 type MsgHandle struct {
-	Apis map[uint32]ciface.IRouter
+	Apis map[uint32]IRouter
 }
 
 func NewMsgHandle() *MsgHandle {
 	return &MsgHandle{
-		Apis: make(map[uint32]ciface.IRouter),
+		Apis: make(map[uint32]IRouter),
 	}
 }
 
-func (mh *MsgHandle) DoMsgHandler(request ciface.IRequest) {
+func (mh *MsgHandle) DoMsgHandler(request IRequest) {
 	handler, ok := mh.Apis[request.GetMsgID()]
 	if !ok {
 		fmt.Println("api msgID =", request.GetMsgID(), " is not found!")
@@ -24,7 +28,7 @@ func (mh *MsgHandle) DoMsgHandler(request ciface.IRequest) {
 	handler.Handle(request)
 }
 
-func (mh *MsgHandle) AddRouter(msgID uint32, router ciface.IRouter) {
+func (mh *MsgHandle) AddRouter(msgID uint32, router IRouter) {
 	if _, ok := mh.Apis[msgID]; ok {
 		fmt.Println("api repeat, msgID =", msgID)
 	}
