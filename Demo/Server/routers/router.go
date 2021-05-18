@@ -22,7 +22,7 @@ type HelloRouter struct {
 	network.BaseRouter
 }
 
-func RouterInit(s network.IServer) {
+func RouterInit(s *network.Server) {
 	s.AddRouter(0, &PingRouter{})
 	s.AddRouter(1, &HelloRouter{})
 
