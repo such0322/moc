@@ -2,6 +2,7 @@ package network
 
 import (
 	"fmt"
+	"io"
 	"net"
 )
 
@@ -33,15 +34,26 @@ func (c *Connection) StartReader() {
 	fmt.Println(c.MsgHandle)
 	for {
 		//读取数据流
-		//TODO 这个应该是
-		buf := make([]byte, 1024)
-		_, err := c.Conn.Read(buf)
-		if err != nil {
-			fmt.Println("read buf err:", err)
+		dp := NewDataPack()
+		headData := make([]byte, dp.GetHeadLen())
+		if _, err := io.ReadFull(c.Conn, headData); err != nil {
+			fmt.Println("read msg head error ", err)
 			return
 		}
-
-		msg := NewMsgPackage(0, buf)
+		msg, err := dp.UnPack(headData)
+		if err != nil {
+			fmt.Println("unpack error ", err)
+			return
+		}
+		var data []byte
+		if msg.GetDataLen() > 0 {
+			data = make([]byte, msg.GetDataLen())
+			if _, err := io.ReadFull(c.Conn, data); err != nil {
+				fmt.Println("read msg data error ", err)
+				return
+			}
+		}
+		msg.SetData(data)
 
 		req := &Request{
 			Msg: msg,

@@ -9,8 +9,8 @@ import (
 func main() {
 
 	s := network.NewServer()
-	logs.SetLogger(logs.AdapterFile)
-	logs.Debug("test sample logger")
+	logs.Init()
+	logs.Debug("aasdfasdfasdfaa")
 	//routersInit := routers.RouterInit(s)
 	routers.RouterInit(s)
 

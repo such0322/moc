@@ -1,29 +1,17 @@
 package routers
 
 import (
-	"fmt"
 	"moc/network"
 )
 
 const (
 	Ping = uint32(iota)
+	Gate
 	Hello
 )
 
-type PingRouter struct {
-	network.BaseRouter
-}
-
-func (r *PingRouter) Handle(request network.IRequest) {
-	fmt.Println("pingpingpingpingping")
-}
-
-type HelloRouter struct {
-	network.BaseRouter
-}
-
 func RouterInit(s *network.Server) {
-	s.AddRouter(0, &PingRouter{})
-	s.AddRouter(1, &HelloRouter{})
-
+	s.AddRouter(Ping, "PingRouter", &PingRouter{})
+	s.AddRouter(Gate, "GateRouter", &GateRouter{})
+	s.AddRouter(Hello, "HelloRouter", &HelloRouter{})
 }

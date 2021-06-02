@@ -15,7 +15,8 @@ type Server struct {
 	MsgHandle IMsgHandle
 }
 
-func (s *Server) AddRouter(msgId uint32, router IRouter) {
+func (s *Server) AddRouter(msgId uint32, Name string, router IRouter) {
+	router.SetName(Name)
 	s.MsgHandle.AddRouter(msgId, router)
 	fmt.Println("Add Router Succ!!")
 }

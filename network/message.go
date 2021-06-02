@@ -4,6 +4,8 @@ type IMessage interface {
 	GetID() uint32
 	GetDataLen() uint32
 	GetData() []byte
+
+	SetData([]byte)
 }
 
 type Message struct {
@@ -30,4 +32,8 @@ func (m *Message) GetDataLen() uint32 {
 
 func (m *Message) GetData() []byte {
 	return m.Data
+}
+
+func (m *Message) SetData(data []byte) {
+	m.Data = data
 }

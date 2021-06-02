@@ -2,6 +2,7 @@ package network
 
 import (
 	"fmt"
+	"moc/logs"
 )
 
 type IMsgHandle interface {
@@ -25,6 +26,7 @@ func (mh *MsgHandle) DoMsgHandler(request IRequest) {
 		fmt.Println("api msgID =", request.GetMsgID(), " is not found!")
 		return
 	}
+	logs.Debug("send to:", handler.GetName())
 	handler.Handle(request)
 }
 
